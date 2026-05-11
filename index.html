@@ -320,16 +320,55 @@ footer a:hover{color:var(--green)}
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   #home{grid-template-columns:1fr;padding-top:90px}
-  .hero-right{display:none}
-  .about-grid{grid-template-columns:1fr}
-  .about-img-wrap{display:none}
-  .proj-grid{grid-template-columns:1fr}
-  .contact-inner{grid-template-columns:1fr}
-  .exp-item{grid-template-columns:1fr;gap:8px}
-  .exp-line{display:none}
-  .exp-date{text-align:left}
-  .nav-links{display:none}
-  .ham{display:flex}
+   .hero-right{
+    display:block;
+    width:100%;
+    text-align:center;
+  }
+
+  .hero-right img{
+    width:60%;
+    max-width:250px;
+    height:auto;
+    display:block;
+    margin:0 auto;
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+  }
+
+  .about-img-wrap{
+    display:block;
+    text-align:center;
+  }
+
+  .about-img-wrap img{
+    width:60%;
+    max-width:250px;
+    height:auto;
+    display:block;
+    margin:0 auto;
+  }
+
+  .proj-grid,
+  .contact-inner,
+  .exp-item{
+    grid-template-columns:1fr;
+  }
+
+  .exp-line,
+  .nav-links{
+    display:none;
+  }
+
+  .exp-date{
+    text-align:left;
+  }
+
+  .ham{
+    display:flex;
+  }
 }
 @media(max-width:600px){
   .info-grid{grid-template-columns:1fr}
