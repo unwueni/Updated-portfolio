@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deborah Ekunke — Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --bg:#080c09;
+  --bg2:#0d1210;
+  --bg3:#111814;
+  --surface:#161e18;
+  --surface2:#1c2820;
+  --green:#00e676;
+  --green2:#00c853;
+  --green-glow:rgba(0,230,118,0.12);
+  --green-faint:rgba(0,230,118,0.06);
+  --amber:#ffd740;
+  --cyan:#18ffff;
+  --red:#ff5252;
+  --text:#deeee5;
+  --text-mid:#7fa98a;
+  --text-dim:#3d5e47;
+  --border:#1a2e1f;
+  --border2:#223328;
+  --mono:'JetBrains Mono',monospace;
+  --display:'Syne',sans-serif;
+  --r:14px;
+  --rs:8px;
+}
+
+::selection{background:var(--green-glow);color:var(--green)}
+
+body{
+  font-family:var(--mono);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* scrollbar */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--green2)}
+
+/* cursor */
+#cur,#cur-r{position:fixed;pointer-events:none;border-radius:50%;z-index:9999;transform:translate(-50%,-50%)}
+#cur{width:10px;height:10px;background:var(--green);mix-blend-mode:screen;transition:transform .15s,width .2s,height .2s}
+#cur-r{width:34px;height:34px;border:1px solid rgba(0,230,118,.35);transition:width .25s,height .25s}
+
+/* grid bg */
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(0,230,118,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,230,118,.035) 1px,transparent 1px);
+  background-size:50px 50px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 0%,black 20%,transparent 75%);
+}
+
+/* noise */
+.noise{position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:60px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 6%;
+  background:rgba(8,12,9,.88);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-family:var(--mono);font-size:.85rem;color:var(--green);letter-spacing:.06em}
+.logo em{color:var(--text-dim);font-style:normal}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text-dim);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-avail{display:flex;align-items:center;gap:7px;font-size:.7rem;color:var(--text-dim)}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px}
+.ham span{width:20px;height:1.5px;background:var(--text-mid);border-radius:1px;transition:.2s}
+
+/* ── HERO ── */
+#home{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:60px;
+  padding:100px 6% 60px;
+  position:relative;z-index:1;
+  max-width:1200px;margin:0 auto;
+}
+.hero-left{}
+.hero-greeting{
+  font-size:.75rem;color:var(--text-dim);letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:22px;display:flex;align-items:center;gap:10px;
+}
+.hero-greeting::before{content:'>';color:var(--green)}
+.hero-name{
+  font-family:var(--display);
+  font-size:clamp(2.8rem,6vw,5.2rem);
+  font-weight:800;line-height:.95;
+  margin-bottom:18px;letter-spacing:-.02em;
+}
+.hero-name .line2{color:var(--green)}
+.hero-roles{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;
+}
+.role-pill{
+  padding:5px 14px;border-radius:50px;
+  background:var(--surface);border:1px solid var(--border2);
+  font-size:.72rem;color:var(--text-mid);letter-spacing:.05em;
+}
+.role-pill.active{border-color:var(--green);color:var(--green);background:var(--green-faint)}
+.hero-bio{
+  font-size:.85rem;color:var(--text-mid);line-height:1.85;
+  max-width:440px;margin-bottom:36px;
+}
+.hero-bio strong{color:var(--text);font-weight:500}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 24px;border-radius:var(--rs);
+  font-family:var(--mono);font-size:.78rem;font-weight:500;
+  letter-spacing:.06em;cursor:none;transition:all .22s;border:1px solid transparent;
+  text-decoration:none;
+}
+.btn-g{background:var(--green);color:var(--bg);border-color:var(--green)}
+.btn-g:hover{background:var(--green2);box-shadow:0 0 28px rgba(0,230,118,.3);transform:translateY(-2px)}
+.btn-o{background:transparent;color:var(--green);border-color:var(--border2)}
+.btn-o:hover{border-color:var(--green);background:var(--green-glow);transform:translateY(-2px)}
+.hero-nums{display:flex;gap:32px;border-top:1px solid var(--border);padding-top:28px}
+.h-num .n{font-family:var(--display);font-size:1.9rem;font-weight:800;color:var(--green)}
+.h-num .l{font-size:.68rem;color:var(--text-dim);margin-top:2px}
+
+/* photo side */
+.hero-right{display:flex;justify-content:center;position:relative}
+.photo-wrap{position:relative;width:340px;height:420px}
+.photo-frame{
+  width:100%;height:100%;border-radius:20px;overflow:hidden;
+  border:1px solid var(--border2);position:relative;
+  box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 60px rgba(0,230,118,.06);
+}
+.photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(15%) contrast(1.05)}
+.photo-frame::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 60%,rgba(0,230,118,.08) 100%);
+}
+.photo-badge{
+  position:absolute;bottom:-16px;left:-16px;
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:12px;padding:14px 18px;
+  font-size:.72rem;color:var(--text-mid);
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  display:flex;flex-direction:column;gap:4px;
+}
+.photo-badge .pb-val{color:var(--green);font-weight:600;font-size:.9rem}
+.photo-corner{
+  position:absolute;top:-14px;right:-14px;
+  background:var(--green);color:var(--bg);
+  border-radius:10px;padding:10px 14px;
+  font-size:.7rem;font-weight:700;letter-spacing:.06em;
+  box-shadow:0 6px 24px rgba(0,230,118,.3);
+}
+.photo-line-h{
+  position:absolute;top:50%;left:-40px;right:-40px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  opacity:.15;pointer-events:none;
+}
+.photo-line-v{
+  position:absolute;left:50%;top:-40px;bottom:-40px;width:1px;
+  background:linear-gradient(180deg,transparent,var(--green),transparent);
+  opacity:.1;pointer-events:none;
+}
+
+/* ── SECTIONS ── */
+.section-wrap{padding:90px 6%;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 6%}
+
+.s-label{
+  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);
+  margin-bottom:10px;display:flex;align-items:center;gap:12px;
+}
+.s-label::before{content:'//';color:var(--text-dim)}
+.s-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.s-title{
+  font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:800;color:var(--text);margin-bottom:52px;line-height:1.1;letter-spacing:-.01em;
+}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+.about-img-wrap{position:relative}
+.about-img{
+  width:100%;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border2);
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.about-img img{width:100%;height:360px;object-fit:cover;object-position:center top;display:block;filter:grayscale(10%)}
+.about-tag{
+  position:absolute;bottom:-16px;right:-16px;
+  background:var(--surface2);border:1px solid var(--green);border-radius:10px;
+  padding:12px 16px;font-size:.75rem;color:var(--green);
+}
+.about-right{}
+.about-text p{font-size:.85rem;color:var(--text-mid);line-height:1.9;margin-bottom:18px}
+.about-text strong{color:var(--text);font-weight:500}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:28px 0;border:1px solid var(--border);border-radius:var(--r)}
+.info-row{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:3px}
+.info-row:nth-child(odd){border-right:1px solid var(--border)}
+.info-row:nth-last-child(-n+2){border-bottom:none}
+.info-row .k{font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em}
+.info-row .v{font-size:.8rem;color:var(--text)}
+.about-links{display:flex;gap:8px;flex-wrap:wrap}
+.a-link{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 14px;
+  border-radius:var(--rs);background:var(--surface);border:1px solid var(--border2);
+  color:var(--text-mid);font-size:.75rem;text-decoration:none;transition:all .2s;cursor:none;
+}
+.a-link:hover{border-color:var(--green);color:var(--green)}
+
+/* ── EXPERIENCE ── */
+.exp-wrap{display:flex;flex-direction:column;gap:0}
+.exp-item{
+  display:grid;grid-template-columns:180px 40px 1fr;
+  gap:0 20px;padding:40px 0;
+  border-bottom:1px solid var(--border);
+}
+.exp-item:last-child{border-bottom:none}
+.exp-date{font-size:.72rem;color:var(--text-dim);padding-top:4px;text-align:right}
+.exp-date .yr{color:var(--green);display:block;margin-bottom:3px;font-size:.7rem}
+.exp-line{display:flex;flex-direction:column;align-items:center;gap:0}
+.exp-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--green);background:var(--bg);flex-shrink:0;margin-top:4px;box-shadow:0 0 10px rgba(0,230,118,.3)}
+.exp-track{flex:1;width:1px;background:var(--border2);margin-top:6px}
+.exp-body{}
+.exp-role{font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:3px}
+.exp-co{font-size:.78rem;color:var(--green);margin-bottom:16px;letter-spacing:.04em}
+.exp-duties{list-style:none;display:flex;flex-direction:column;gap:8px}
+.exp-duties li{font-size:.8rem;color:var(--text-mid);display:flex;gap:10px;align-items:flex-start}
+.exp-duties li::before{content:'▸';color:var(--green);flex-shrink:0;margin-top:1px}
+
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.proj-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:32px 28px;display:flex;flex-direction:column;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.proj-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--green),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.proj-card:hover{border-color:var(--border2);transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 30px rgba(0,230,118,.04)}
+.proj-card:hover::before{transform:scaleX(1)}
+.proj-num{font-size:.65rem;color:var(--text-dim);margin-bottom:16px;letter-spacing:.1em}
+.proj-live{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:50px;
+  background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.3);
+  color:var(--green);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.proj-live .dot{width:5px;height:5px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite}
+.proj-card h3{font-family:var(--display);font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:12px}
+.proj-card p{font-size:.8rem;color:var(--text-mid);line-height:1.8;flex:1;margin-bottom:20px}
+.proj-stack{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.s-tag{padding:3px 9px;background:var(--bg3,#0d1210);border:1px solid var(--border);border-radius:4px;font-size:.68rem;color:var(--text-dim)}
+.proj-link{font-size:.75rem;color:var(--green);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .2s;cursor:none;letter-spacing:.05em}
+.proj-link:hover{gap:12px}
+
+/* ── CONTACT & FOOTER ── */
+.contact-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;
+}
+.contact-left p{font-size:.85rem;color:var(--text-mid);line-height:1.9;margin-bottom:28px}
+.soc-list{display:flex;flex-direction:column;gap:10px}
+.soc-row{
+  display:flex;align-items:center;gap:14px;padding:13px 16px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);
+  text-decoration:none;transition:all .22s;cursor:none;
+}
+.soc-row:hover{border-color:var(--green);background:var(--green-faint);transform:translateX(6px)}
+.soc-row .ic{font-size:.9rem;width:18px;text-align:center}
+.soc-row .lb{font-size:.78rem;color:var(--text-mid)}
+.soc-row .vl{font-size:.75rem;color:var(--green);margin-left:auto}
+.cf{display:flex;flex-direction:column;gap:14px}
+.cf label{display:block;font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}
+.cf input,.cf textarea{
+  width:100%;padding:12px 15px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);
+  font-family:var(--mono);font-size:.8rem;color:var(--text);outline:none;
+  transition:border-color .2s,box-shadow .2s;resize:none;
+}
+.cf input:focus,.cf textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-faint)}
+.cf input::placeholder,.cf textarea::placeholder{color:var(--text-dim)}
+.cf textarea{min-height:110px}
+.cf-ok{display:none;padding:12px 16px;background:var(--green-faint);border:1px solid var(--green);border-radius:var(--rs);font-size:.8rem;color:var(--green);margin-bottom:4px}
+.cf-ok.show{display:block}
+
+footer{
+  border-top:1px solid var(--border);padding:28px 6%;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  font-size:.7rem;color:var(--text-dim);position:relative;z-index:1;
+}
+footer a{color:var(--text-dim);text-decoration:none;transition:color .2s;cursor:none}
+footer a:hover{color:var(--green)}
+.f-logo{color:var(--green);font-weight:600}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.up{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  #home{grid-template-columns:1fr;padding-top:90px}
+  .hero-right{display:none}
+  .about-grid{grid-template-columns:1fr}
+  .about-img-wrap{display:none}
+  .proj-grid{grid-template-columns:1fr}
+  .contact-inner{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr;gap:8px}
+  .exp-line{display:none}
+  .exp-date{text-align:left}
+  .nav-links{display:none}
+  .ham{display:flex}
+}
+@media(max-width:600px){
+  .info-grid{grid-template-columns:1fr}
+  .info-row:nth-child(odd){border-right:none}
+  .info-row:nth-last-child(-n+2){border-bottom:1px solid var(--border)}
+  .info-row:last-child{border-bottom:none}
+  .hero-name{font-size:clamp(2.4rem,10vw,3.5rem)}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="noise"></div>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">deborah<em>.ekunke</em>()</div>
+  <ul class="nav-links" id="navlinks">
+    <li><a href="#home">home</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <div class="nav-avail"><div class="avail-dot"></div>open to opportunities</div>
+  <button class="ham" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ HOME ══ -->
+<section id="home">
+  <div class="hero-left">
+    <div class="hero-greeting reveal">Software Developer · Port Harcourt, NG</div>
+
+    <h1 class="hero-name reveal">
+      Hi, I'm<br>
+      <span class="line2">Deborah<br>Ekunke.</span>
+    </h1>
+
+    <div class="hero-roles reveal">
+      <span class="role-pill active">Software Developer</span>
+      <span class="role-pill">IT Support</span>
+      <span class="role-pill">Virtual Assistant</span>
+      <span class="role-pill">Tech Educator</span>
+    </div>
+
+    <p class="hero-bio reveal">
+      I build <strong>user-friendly web solutions</strong> that solve real-life problems.
+      Passionate about digital access, community learning, and using code to create
+      meaningful impact — one project at a time.
+    </p>
+
+    <div class="ctas reveal">
+      <a href="#projects" class="btn btn-g">View My Work →</a>
+      <a href="#contact" class="btn btn-o">Let's Talk</a>
+      <a href="https://github.com/unwueni" target="_blank" class="btn btn-o">GitHub ↗</a>
+    </div>
+
+    <div class="hero-nums reveal">
+      <div class="h-num"><div class="n">4+</div><div class="l">Projects</div></div>
+      <div class="h-num"><div class="n">2+</div><div class="l">Years in Tech</div></div>
+      <div class="h-num"><div class="n">100%</div><div class="l">Free & Open</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right reveal">
+    <div class="photo-wrap">
+      <div class="photo-line-h"></div>
+      <div class="photo-line-v"></div>
+      <div class="photo-frame">
+        <img src="/asset/profile.jpg"alt="Deborah Ekunke"> 
+      </div>
+      <div class="photo-badge">
+        <span class="pb-val">✦ Available</span>
+        <span>for remote roles</span>
+      </div>
+      <div class="photo-corner">DEV</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ ABOUT ══ -->
+<div class="section-wrap" id="about">
+  <div class="s-label">about_me</div>
+  <h2 class="s-title">A Bit About Me</h2>
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <div class="about-img">
+        <img src="/asset/profile.jpg"alt="Deborah Ekunke">
+
+      </div>
+      <div class="about-tag">B.Sc. Software Dev<br>BYU-Idaho · 2027</div>
+    </div>
+    <div class="about-right">
+      <div class="about-text reveal">
+
+        <p>I'm a <strong>passionate software developer and IT support specialist</strong> based in Port Harcourt, Nigeria. I love building solutions that solve real-life problems and creating applications that are both useful and beautiful to use.</p>
+        <p>My journey is unique — I hold a <strong>B.Sc. in Microbiology</strong> from the University of Port Harcourt and am currently pursuing a <strong>B.Sc. in Software Development</strong> at BYU-Idaho. That scientific background gives me an analytical edge in everything I build.</p>
+        <p>Beyond code, I'm a <strong>content writer, virtual assistant, and tech educator in training</strong> — deeply committed to helping others find their footing in the world of technology.</p>
+      </div>
+      <div class="info-grid reveal">
+        <div class="info-row"><span class="k">Location</span><span class="v">Port Harcourt, NG</span></div>
+        <div class="info-row"><span class="k">Currently</span><span class="v">IT Support @ ACE-CEFOR UNIPORT</span></div>
+        <div class="info-row"><span class="k">Studying</span><span class="v">B.Sc. Software Dev</span></div>
+        <div class="info-row"><span class="k">Email</span><span class="v">ekunkedeborah@gmail.com</span></div>
+      </div>
+      <div class="about-links reveal">
+        <a href="https://github.com/unwueni" target="_blank" class="a-link">⌥ GitHub</a>
+        <a href="https://linkedin.com/in/deborah-ekunke" target="_blank" class="a-link">◈ LinkedIn</a>
+        <a href="mailto:ekunkedeborah@gmail.com" class="a-link">✉ Email</a>
+        <a href="https://instagram.com/unwueni" target="_blank" class="a-link">◻ Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100076179810632" target="_blank" class="a-link">◉ Facebook</a>
+        <a href="https://x.com/unwueni" target="_blank" class="a-link">◻ X</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ EXPERIENCE ══ -->
+<div class="section-wrap" id="experience">
+  <div class="s-label">experience</div>
+  <h2 class="s-title">Where I've Worked</h2>
+  <div class="exp-wrap">
+
+    <div class="exp-item reveal">
+      <div class="exp-date"><span class="yr">2025 – Present</span>Current</div>
+      <div class="exp-line"><div class="exp-dot"></div><div class="exp-track"></div></div>
+      <div class="exp-body">
+        <div class="exp-role">IT Support Specialist</div>
+        <div class="exp-co">ACE-CEFOR UNIPORT</div>
+        <ul class="exp-duties">
+          <li>Provide technical support and troubleshooting for staff and users</li>
+          <li>Assist users with system, software, and network issues</li>
+          <li>Support and maintain daily IT operations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date"><span class="yr">2025</span>Contract</div>
+      <div class="exp-line"><div class="exp-dot"></div><div class="exp-track"></div></div>
+      <div class="exp-body">
+        <div class="exp-role">IT Support & Content Writer</div>
+        <div class="exp-co">Speedlink Services</div>
+        <ul class="exp-duties">
+          <li>Provided IT support and training assistance to teams and clients</li>
+          <li>Created SEO-optimized content, articles, and video scripts</li>
+          <li>Supported digital training programs and e-learning initiatives</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date"><span class="yr">6 Months</span>Internship</div>
+      <div class="exp-line"><div class="exp-dot"></div><div class="exp-track"></div></div>
+      <div class="exp-body">
+        <div class="exp-role">Laboratory Intern</div>
+        <div class="exp-co">Marseller Medical Laboratory</div>
+        <ul class="exp-duties">
+          <li>Assisted with laboratory operations and sample processing</li>
+          <li>Supported patient-facing services and data documentation</li>
+          <li>Gained professional experience in a structured medical environment</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ PROJECTS ══ -->
+<div class="section-wrap" id="projects">
+  <div class="s-label">projects</div>
+  <h2 class="s-title">Things I've Built</h2>
+  <div class="proj-grid">
+
+    <div class="proj-card reveal">
+      <div class="proj-num">01</div>
+      <span class="proj-live"><span class="dot"></span>Live</span>
+      <h3>EduBridge</h3>
+      <p>A free learning platform connecting students with volunteer tutors for WAEC, JAMB, NECO, and modern tech skills. Built to remove financial barriers to quality education across Nigeria.</p>
+      <div class="proj-stack">
+        <span class="s-tag">HTML</span><span class="s-tag">CSS</span><span class="s-tag">JavaScript</span>
+      </div>
+      <a href="#" class="proj-link">view_project →</a>
+    </div>
+
+    <div class="proj-card reveal">
+      <div class="proj-num">02</div>
+      <h3>Food Website</h3>
+      <p>A fully responsive restaurant-style website showcasing food items with a clean layout and smooth browsing experience. Focused on visual design and accessibility.</p>
+      <div class="proj-stack">
+        <span class="s-tag">HTML</span><span class="s-tag">CSS</span><span class="s-tag">Bootstrap</span><span class="s-tag">JavaScript</span>
+      </div>
+      <a href="https://github.com/unwueni" target="_blank" class="proj-link">view_on_github →</a>
+    </div>
+
+    <div class="proj-card reveal">
+      <div class="proj-num">03</div>
+      <h3>Flight Booking UI</h3>
+      <p>A web platform simulating a flight booking interface with structured navigation, forms, and layouts — designed to mirror real-world airline booking experiences.</p>
+      <div class="proj-stack">
+        <span class="s-tag">HTML</span><span class="s-tag">CSS</span><span class="s-tag">JavaScript</span>
+      </div>
+      <a href="https://github.com/unwueni" target="_blank" class="proj-link">view_on_github →</a>
+    </div>
+
+    <div class="proj-card reveal">
+      <div class="proj-num">04</div>
+      <h3>Music Website</h3>
+      <p>An interactive music platform with integrated audio playback, allowing users to explore and play songs through custom controls and a visually engaging interface.</p>
+      <div class="proj-stack">
+        <span class="s-tag">HTML</span><span class="s-tag">CSS</span>
+      </div>
+      <a href="https://github.com/unwueni" target="_blank" class="proj-link">view_on_github →</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ CONTACT ══ -->
+<div class="section-wrap" id="contact">
+  <div class="s-label">contact</div>
+  <h2 class="s-title">Let's Work Together</h2>
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <p>Whether you have a project, a job opportunity, or just want to say hello — I'd love to hear from you. I'm open to <strong style="color:var(--text)">remote roles, freelance work, and collaborations.</strong></p>
+      <div class="soc-list">
+        <a href="mailto:ekunkedeborah@gmail.com" class="soc-row">
+          <span class="ic">✉</span><span class="lb">Email</span><span class="vl">ekunkedeborah@gmail.com</span>
+        </a>
+        <a href="https://github.com/unwueni" target="_blank" class="soc-row">
+          <span class="ic">⌥</span><span class="lb">GitHub</span><span class="vl">@unwueni</span>
+        </a>
+        <a href="https://linkedin.com/in/deborah-ekunke" target="_blank" class="soc-row">
+          <span class="ic">◈</span><span class="lb">LinkedIn</span><span class="vl">deborah-ekunke</span>
+        </a>
+        <a href="https://instagram.com/unwueni" target="_blank" class="soc-row">
+          <span class="ic">◻</span><span class="lb">Instagram</span><span class="vl">@unwueni</span>
+        </a>
+         <a href="https://www.facebook.com/profile.php?id=100076179810632" target="_blank" class="soc-row">
+          <span class="ic">◉</span><span class="lb">facebook</span><span class="vl">@unwueni</span>
+        </a>
+         <a href="https://x.com/unwueni" target="_blank" class="soc-row">
+          <span class="ic">◻</span><span class="lb">X</span><span class="vl">@unwueni</span>
+        </a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="cf-ok" id="cfok">✓ Message sent! I'll get back to you within 24 hours.</div>
+      <form class="cf" onsubmit="sendMsg(event)">
+        <div><label>Name</label><input type="text" placeholder="Your name" required></div>
+        <div><label>Email</label><input type="email" placeholder="your@email.com" required></div>
+         <div class="form-group"><label>Subject</label><input type="text" placeholder="Project Inquiry / Job Opportunity / Collaboration">
+        </div>
+        <div><label>Message</label><textarea placeholder="Hi Deborah, I'd love to work with you on..." required></textarea></div>
+        <button type="submit" class="btn btn-g" style="align-self:flex-start">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div><span class="f-logo">deborah.ekunke()</span> — Built with HTML, CSS & JS</div>
+  <div>
+    <a href="https://github.com/unwueni" target="_blank">GitHub</a> ·
+    <a href="https://linkedin.com/in/deborah-ekunke" target="_blank">LinkedIn</a> ·
+    <a href="mailto:ekunkedeborah@gmail.com">Email</a>
+  </div>
+  <div>© 2026 Deborah Ekunke</div>
+</footer>
+
+<script>
+// cursor
+const c=document.getElementById('cur'),r=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  c.style.left=mx+'px';c.style.top=my+'px';
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.proj-card,.soc-row,.skill-chip').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c.style.transform='translate(-50%,-50%) scale(2.5)';c.style.opacity='.4';r.style.width='50px';r.style.height='50px'});
+  el.addEventListener('mouseleave',()=>{c.style.transform='translate(-50%,-50%) scale(1)';c.style.opacity='1';r.style.width='34px';r.style.height='34px'});
+});
+
+// reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('up'),i*90)});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// active nav
+const secs=document.querySelectorAll('section[id],[id]');
+const links=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  links.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--green)':''});
+});
+
+// form
+function sendMsg(e){
+  e.preventDefault();
+  document.getElementById('cfok').classList.add('show');
+  e.target.reset();
+  setTimeout(()=>document.getElementById('cfok').classList.remove('show'),5000);
+}
+
+// mobile nav
+function toggleNav(){
+  const n=document.getElementById('navlinks');
+  n.style.display=n.style.display==='flex'?'none':'flex';
+  if(n.style.display==='flex'){
+    Object.assign(n.style,{flexDirection:'column',position:'absolute',top:'60px',left:0,right:0,background:'rgba(8,12,9,.97)',padding:'20px 6%',gap:'18px',borderBottom:'1px solid var(--border)'});
+  }
+}
+
+// smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  });
+});
+</script>
+</body>
+</html>
