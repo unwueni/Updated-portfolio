@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deborah Ekunke — Software Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -22,12 +22,13 @@ html{scroll-behavior:smooth}
   --amber:#ffd740;
   --cyan:#18ffff;
   --red:#ff5252;
-  --text:#deeee5;
-  --text-mid:#7fa98a;
-  --text-dim:#3d5e47;
+  --text:white;
+  --text-mid:white;
+  --text-dim:white;
+  --white: white;
   --border:#1a2e1f;
   --border2:#223328;
-  --mono:'JetBrains Mono',monospace;
+  --poppi:'Poppins', sans-serif;
   --display:'Syne',sans-serif;
   --r:14px;
   --rs:8px;
@@ -36,12 +37,13 @@ html{scroll-behavior:smooth}
 ::selection{background:var(--green-glow);color:var(--green)}
 
 body{
-  font-family:var(--mono);
+ font-family: 'Poppins', sans-serif; 
   background:var(--bg);
   color:var(--text);
   line-height:1.7;
   overflow-x:hidden;
   cursor:none;
+  font-weight: 500;
 }
 
 /* scrollbar */
@@ -76,12 +78,12 @@ nav{
   background:rgba(8,12,9,.88);backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
 }
-.logo{font-family:var(--mono);font-size:.85rem;color:var(--green);letter-spacing:.06em}
+.logo{font-family:var(--Poppins);font: size 0 0.5em;;color:var(--white);letter-spacing:.06em}
 .logo em{color:var(--text-dim);font-style:normal}
 .nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{text-decoration:none;color:var(--text-dim);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a{text-decoration:none;color:var(--text-dim);font: size 0.5em;;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
 .nav-links a:hover{color:var(--green)}
-.nav-avail{display:flex;align-items:center;gap:7px;font-size:.7rem;color:var(--text-dim)}
+.nav-avail{display:flex;align-items:center;gap:7px;font: size 0.7em;;color:var(--text-dim)}
 .avail-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px}
@@ -101,7 +103,7 @@ nav{
   font-size:.75rem;color:var(--text-dim);letter-spacing:.15em;text-transform:uppercase;
   margin-bottom:22px;display:flex;align-items:center;gap:10px;
 }
-.hero-greeting::before{content:'>';color:var(--green)}
+.hero-greeting::before{content:'>';color:var(--white)}
 .hero-name{
   font-family:var(--display);
   font-size:clamp(2.8rem,6vw,5.2rem);
@@ -117,7 +119,7 @@ nav{
   background:var(--surface);border:1px solid var(--border2);
   font-size:.72rem;color:var(--text-mid);letter-spacing:.05em;
 }
-.role-pill.active{border-color:var(--green);color:var(--green);background:var(--green-faint)}
+.role-pill.active{border-color:var(--green);color:var(--white);background:var(--green-faint)}
 .hero-bio{
   font-size:.85rem;color:var(--text-mid);line-height:1.85;
   max-width:440px;margin-bottom:36px;
@@ -127,7 +129,7 @@ nav{
 .btn{
   display:inline-flex;align-items:center;gap:8px;
   padding:11px 24px;border-radius:var(--rs);
-  font-family:var(--mono);font-size:.78rem;font-weight:500;
+  font-family:var(--Poppins);font: size 0.5em;;font-weight:500;
   letter-spacing:.06em;cursor:none;transition:all .22s;border:1px solid transparent;
   text-decoration:none;
 }
@@ -163,7 +165,7 @@ nav{
 .photo-badge .pb-val{color:var(--green);font-weight:600;font-size:.9rem}
 .photo-corner{
   position:absolute;top:-14px;right:-14px;
-  background:var(--green);color:var(--bg);
+  background:var(--green);color:var(--white);
   border-radius:10px;padding:10px 14px;
   font-size:.7rem;font-weight:700;letter-spacing:.06em;
   box-shadow:0 6px 24px rgba(0,230,118,.3);
@@ -184,7 +186,7 @@ nav{
 .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 6%}
 
 .s-label{
-  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);
+  font-size:.88rem;letter-spacing:.18em;text-transform:uppercase;color:var(--white);
   margin-bottom:10px;display:flex;align-items:center;gap:12px;
 }
 .s-label::before{content:'//';color:var(--text-dim)}
@@ -206,7 +208,7 @@ nav{
 .about-tag{
   position:absolute;bottom:-16px;right:-16px;
   background:var(--surface2);border:1px solid var(--green);border-radius:10px;
-  padding:12px 16px;font-size:.75rem;color:var(--green);
+  padding:12px 16px;font-size:.75rem;color:var(--white);
 }
 .about-right{}
 .about-text p{font-size:.85rem;color:var(--text-mid);line-height:1.9;margin-bottom:18px}
@@ -233,16 +235,16 @@ nav{
   border-bottom:1px solid var(--border);
 }
 .exp-item:last-child{border-bottom:none}
-.exp-date{font-size:.72rem;color:var(--text-dim);padding-top:4px;text-align:right}
-.exp-date .yr{color:var(--green);display:block;margin-bottom:3px;font-size:.7rem}
+.exp-date{font: size 0.7em;;color:var(--text-dim);padding-top:4px;text-align:right}
+.exp-date .yr{color:var(--green);display:block;margin-bottom:3px;font: size 0.7em;}
 .exp-line{display:flex;flex-direction:column;align-items:center;gap:0}
 .exp-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--green);background:var(--bg);flex-shrink:0;margin-top:4px;box-shadow:0 0 10px rgba(0,230,118,.3)}
 .exp-track{flex:1;width:1px;background:var(--border2);margin-top:6px}
 .exp-body{}
 .exp-role{font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:3px}
-.exp-co{font-size:.78rem;color:var(--green);margin-bottom:16px;letter-spacing:.04em}
+.exp-co{font: size 0.7em;;color:var(--green);margin-bottom:16px;letter-spacing:.04em}
 .exp-duties{list-style:none;display:flex;flex-direction:column;gap:8px}
-.exp-duties li{font-size:.8rem;color:var(--text-mid);display:flex;gap:10px;align-items:flex-start}
+.exp-duties li{font: size 0.7em;;color:var(--text-mid);display:flex;gap:10px;align-items:flex-start}
 .exp-duties li::before{content:'▸';color:var(--green);flex-shrink:0;margin-top:1px}
 
 /* ── PROJECTS ── */
@@ -259,27 +261,27 @@ nav{
 }
 .proj-card:hover{border-color:var(--border2);transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 30px rgba(0,230,118,.04)}
 .proj-card:hover::before{transform:scaleX(1)}
-.proj-num{font-size:.65rem;color:var(--text-dim);margin-bottom:16px;letter-spacing:.1em}
+.proj-num{font: size 0.8em;;color:var(--text-dim);margin-bottom:16px;letter-spacing:.1em}
 .proj-live{
   display:inline-flex;align-items:center;gap:5px;
   padding:3px 10px;border-radius:50px;
   background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.3);
-  color:var(--green);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--green);font: size 0.5em;;letter-spacing:.08em;text-transform:uppercase;
   margin-bottom:12px;
 }
 .proj-live .dot{width:5px;height:5px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite}
 .proj-card h3{font-family:var(--display);font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:12px}
-.proj-card p{font-size:.8rem;color:var(--text-mid);line-height:1.8;flex:1;margin-bottom:20px}
+.proj-card p{font: size 0.6em;;color:var(--text-mid);line-height:1.8;flex:1;margin-bottom:20px}
 .proj-stack{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
-.s-tag{padding:3px 9px;background:var(--bg3,#0d1210);border:1px solid var(--border);border-radius:4px;font-size:.68rem;color:var(--text-dim)}
-.proj-link{font-size:.75rem;color:var(--green);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .2s;cursor:none;letter-spacing:.05em}
+.s-tag{padding:3px 9px;background:var(--bg3,#0d1210);border:1px solid var(--border);border-radius:4px;font: size 0 0.5em;color:var(--text-dim)}
+.proj-link{font: size  0.6em;;color:var(--green);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .2s;cursor:none;letter-spacing:.05em}
 .proj-link:hover{gap:12px}
 
 /* ── CONTACT & FOOTER ── */
 .contact-inner{
   display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;
 }
-.contact-left p{font-size:.85rem;color:var(--text-mid);line-height:1.9;margin-bottom:28px}
+.contact-left p{font: size 0.8em;;color:var(--text-mid);line-height:1.9;margin-bottom:28px}
 .soc-list{display:flex;flex-direction:column;gap:10px}
 .soc-row{
   display:flex;align-items:center;gap:14px;padding:13px 16px;
@@ -291,27 +293,27 @@ nav{
 .soc-row .lb{font-size:.78rem;color:var(--text-mid)}
 .soc-row .vl{font-size:.75rem;color:var(--green);margin-left:auto}
 .cf{display:flex;flex-direction:column;gap:14px}
-.cf label{display:block;font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}
+.cf label{display:block;font: size 0.6em;;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}
 .cf input,.cf textarea{
   width:100%;padding:12px 15px;
   background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);
-  font-family:var(--mono);font-size:.8rem;color:var(--text);outline:none;
+  font-family:var(--Poppins);font: size 0.8em;;color:var(--text);outline:none;
   transition:border-color .2s,box-shadow .2s;resize:none;
 }
 .cf input:focus,.cf textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-faint)}
 .cf input::placeholder,.cf textarea::placeholder{color:var(--text-dim)}
 .cf textarea{min-height:110px}
-.cf-ok{display:none;padding:12px 16px;background:var(--green-faint);border:1px solid var(--green);border-radius:var(--rs);font-size:.8rem;color:var(--green);margin-bottom:4px}
+.cf-ok{display:none;padding:12px 16px;background:var(--green-faint);border:1px solid var(--green);border-radius:var(--rs);font: size 0 0.5em;color:var(--green);margin-bottom:4px}
 .cf-ok.show{display:block}
 
 footer{
   border-top:1px solid var(--border);padding:28px 6%;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
-  font-size:.7rem;color:var(--text-dim);position:relative;z-index:1;
+  font: size 0.4em;;color:var(--text-dim);position:relative;z-index:1;
 }
 footer a{color:var(--text-dim);text-decoration:none;transition:color .2s;cursor:none}
 footer a:hover{color:var(--green)}
-.f-logo{color:var(--green);font-weight:600}
+.f-logo{color:var(--white);font-weight:600}
 
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
@@ -561,7 +563,7 @@ footer a:hover{color:var(--green)}
       <div class="proj-stack">
         <span class="s-tag">HTML</span><span class="s-tag">CSS</span><span class="s-tag">JavaScript</span>
       </div>
-      <a href="#" class="proj-link">view_project →</a>
+      <a href="https://edu-bridge-website.vercel.app/" target="_blank" class="proj-link">view_project →</a>
     </div>
 
     <div class="proj-card reveal">
@@ -576,7 +578,7 @@ footer a:hover{color:var(--green)}
 
     <div class="proj-card reveal">
       <div class="proj-num">03</div>
-      <h3>Flight Booking UI</h3>
+      <h3>Flight Booking</h3>
       <p>A web platform simulating a flight booking interface with structured navigation, forms, and layouts — designed to mirror real-world airline booking experiences.</p>
       <div class="proj-stack">
         <span class="s-tag">HTML</span><span class="s-tag">CSS</span><span class="s-tag">JavaScript</span>
